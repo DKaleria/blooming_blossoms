@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public class ConnectionManager {
+public final class ConnectionManager {
     private static final String URL_KEY = "db.url";
     private static final String USERNAME_KEY = "db.username";
     private static final String PASSWORD_KEY = "db.password";
@@ -16,14 +16,22 @@ public class ConnectionManager {
     private static BlockingQueue<Connection> pool;
 
     static {
+        loadDriver();
         initConnectionPool();
+    }
+
+    private static void loadDriver() {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void initConnectionPool() {
         String poolSize = PropertiesUtil.get(POOL_SIZE_KEY);
         int size = poolSize == null ? DEFAULT_POOL_SIZE : Integer.parseInt(poolSize);
-        pool = new ArrayBlockingQueue(size);
-
+        pool = new ArrayBlockingQueue<>(size);
 
         for (int i = 0; i < size; i++) {
             Connection connection = open();
@@ -33,9 +41,7 @@ public class ConnectionManager {
                             pool.add((Connection) proxy) :
                             method.invoke(connection, args));
             pool.add(proxyConnection);
-
         }
-
     }
 
     public static Connection get() {
@@ -48,16 +54,15 @@ public class ConnectionManager {
 
     private static Connection open() {
         try {
-            return DriverManager.getConnection(
-                    PropertiesUtil.get(URL_KEY),
-                    PropertiesUtil.get(USERNAME_KEY),
-                    PropertiesUtil.get(PASSWORD_KEY));
+            String url = PropertiesUtil.get(URL_KEY);
+            String username = PropertiesUtil.get(USERNAME_KEY);
+            String password = PropertiesUtil.get(PASSWORD_KEY);
+            return DriverManager.getConnection(url, username, password);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     private ConnectionManager() {
-
     }
 }

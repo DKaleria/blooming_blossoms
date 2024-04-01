@@ -1,7 +1,7 @@
 package dubovikLera.dao;
 
-import dubovikLera.entity.Categories;
 import dubovikLera.entity.Customers;
+import dubovikLera.entity.Orders;
 import dubovikLera.exception.DaoException;
 import dubovikLera.utils.ConnectionManager;
 
@@ -15,34 +15,30 @@ import java.util.Optional;
 public class CustomersDao implements Dao<Integer,Customers> {
     private final static CustomersDao INSTANCE = new CustomersDao();
 
-    public static CustomersDao getInstance() {
-        return INSTANCE;
-    }
-
     private CustomersDao() {
 
     }
     private final static String UPDATE_SQL = """
-        update customers 
-        set first_name = ?, last_name = ?, delivery_address = ?, contact_details = ?
-        where customer_id = ?
-        """;
+    update customers 
+    set first_name = ?, last_name = ?, delivery_address = ?, contact_details = ?
+    where customer_id = ?
+    """;
     private static final String DELETE_SQL ="""
-        delete from customers
-        where customer_id = ?
-        """;
+    delete from customers
+    where customer_id = ?
+    """;
 
     private static final String GET_ALL_SQL =  """
-        select customer_id, first_name, last_name, delivery_address, contact_details from customers
-        """;
+    select customer_id, first_name, last_name, delivery_address, contact_details from customers
+    """;
 
     private static final String FIND_BY_ID_SQL = GET_ALL_SQL + """
-        where customer_id = ?
-        """;
+    where customer_id = ?
+    """;
     private static final String CREATE_SQL = """
-            insert into customers
-            values (first_name = ?, last_name = ?, delivery_address = ?, contact_details = ?)
-            """;
+        insert into customers
+        values (first_name = ?, last_name = ?, delivery_address = ?, contact_details = ?)
+        """;
 
 
 
@@ -141,5 +137,9 @@ public class CustomersDao implements Dao<Integer,Customers> {
         } catch (SQLException e) {
             throw new DaoException(e);
         }
+
+    }
+    public static CustomersDao getInstance() {
+        return INSTANCE;
     }
 }

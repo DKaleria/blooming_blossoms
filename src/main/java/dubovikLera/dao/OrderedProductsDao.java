@@ -1,9 +1,7 @@
 package dubovikLera.dao;
 
-import dubovikLera.entity.Categories;
-import dubovikLera.entity.OrderedProducts;
-import dubovikLera.entity.Orders;
-import dubovikLera.entity.Products;
+import dubovikLera.dto.ProductsDto;
+import dubovikLera.entity.*;
 import dubovikLera.exception.DaoException;
 import dubovikLera.utils.ConnectionManager;
 
@@ -55,7 +53,7 @@ public class OrderedProductsDao implements Dao<Integer, OrderedProducts> {
                 var statement = connection.prepareStatement(CREATE_SQL, Statement.RETURN_GENERATED_KEYS)
         ) {
             statement.setInt(1, object.getOrder_id().getOrder_id());
-            statement.setInt(2, object.getProduct_id().getProduct_id());
+            statement.setInt(2, object.getProduct_id().getProductId());
             statement.setInt(3, object.getQuantity());
 
 
@@ -74,7 +72,7 @@ public class OrderedProductsDao implements Dao<Integer, OrderedProducts> {
         ) {
 
             statement.setInt(1, object.getOrder_id().getOrder_id());
-            statement.setInt(2, object.getProduct_id().getProduct_id());
+            statement.setInt(2, object.getProduct_id().getProductId());
             statement.setInt(3, object.getQuantity());
             statement.setInt(4, object.getOrders_product_id());
             return statement.executeUpdate() > 0;
@@ -115,7 +113,7 @@ public class OrderedProductsDao implements Dao<Integer, OrderedProducts> {
                 Optional<Orders> order = ordersDao.findById(orderId);
 
                 ProductsDao productsDao = ProductsDao.getInstance();
-                Optional<Products> product = productsDao.findById(productId);
+                Optional<ProductsDto> product = productsDao.findById(productId);
 
                 if (order.isPresent() && product.isPresent()) {
                     OrderedProducts orderedProducts = new OrderedProducts(order.get(), product.get(),
@@ -147,7 +145,7 @@ public class OrderedProductsDao implements Dao<Integer, OrderedProducts> {
                 Optional<Orders> order = ordersDao.findById(orderId);
 
                 ProductsDao productsDao = ProductsDao.getInstance();
-                Optional<Products> product = productsDao.findById(productId);
+                Optional<ProductsDto> product = productsDao.findById(productId);
 
                 if (order.isPresent() && product.isPresent()) {
                     OrderedProducts orderedProducts = new OrderedProducts(order.get(), product.get(),

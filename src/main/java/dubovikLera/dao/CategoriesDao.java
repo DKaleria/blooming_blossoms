@@ -1,6 +1,7 @@
 package dubovikLera.dao;
 
-import dubovikLera.entity.Categories;
+import dubovikLera.dto.CategoriesDto;
+import dubovikLera.entity.Orders;
 import dubovikLera.exception.DaoException;
 import dubovikLera.utils.ConnectionManager;
 
@@ -11,13 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CategoriesDao implements Dao<Integer, Categories> {
+public class CategoriesDao implements Dao<Integer, CategoriesDto> {
     private final static CategoriesDao INSTANCE = new CategoriesDao();
 
 
-    public static CategoriesDao getInstance() {
-        return INSTANCE;
-    }
 
     private CategoriesDao() {
 
@@ -34,7 +32,7 @@ public class CategoriesDao implements Dao<Integer, Categories> {
             """;
 
     private static final String GET_ALL_SQL = """
-            select name from categories
+            select category_id, name from categories
             """;
 
     private static final String FIND_BY_ID_SQL = GET_ALL_SQL + """
@@ -46,16 +44,16 @@ public class CategoriesDao implements Dao<Integer, Categories> {
             values (name = ?)
             """;
 
-    private Categories buildCategories(ResultSet result) throws SQLException {
-        return new Categories(
-                result.getInt("category_id"),
-                result.getString("name")
-        );
+    private CategoriesDto buildCategories(ResultSet result) throws SQLException {
+        return CategoriesDto.builder()
+                .categoryId(result.getInt("category_id"))
+                .name(result.getString("name"))
+                .build();
     }
 
 
     @Override
-    public void create(Categories object) {
+    public void create(CategoriesDto object) {
         try (
                 var connection = ConnectionManager.get();
                 var statement = connection.prepareStatement(CREATE_SQL, Statement.RETURN_GENERATED_KEYS)
@@ -70,7 +68,7 @@ public class CategoriesDao implements Dao<Integer, Categories> {
     }
 
     @Override
-    public boolean update(Categories object) {
+    public boolean update(CategoriesDto object) {
         try (
                 var connection = ConnectionManager.get();
                 var statement = connection.prepareStatement(UPDATE_SQL)
@@ -98,12 +96,12 @@ public class CategoriesDao implements Dao<Integer, Categories> {
     }
 
     @Override
-    public List<Categories> getAll() {
+    public List<CategoriesDto> getAll() {
         try (
                 var connection = ConnectionManager.get();
                 var statement = connection.prepareStatement(GET_ALL_SQL)
         ) {
-            List<Categories> categories = new ArrayList<>();
+            List<CategoriesDto> categories = new ArrayList<>();
 
             var result = statement.executeQuery();
             while (result.next()) {
@@ -117,13 +115,13 @@ public class CategoriesDao implements Dao<Integer, Categories> {
     }
 
     @Override
-    public Optional<Categories> findById(Integer id) {
+    public Optional<CategoriesDto> findById(Integer id) {
         try (var connection = ConnectionManager.get();
              var statement = connection.prepareStatement(FIND_BY_ID_SQL)) {
             statement.setInt(1, id);
             var result = statement.executeQuery();
 
-            Categories categories = null;
+            CategoriesDto categories = null;
             if (result.next()) {
                 categories = buildCategories(result);
 
@@ -134,5 +132,11 @@ public class CategoriesDao implements Dao<Integer, Categories> {
             throw new DaoException(e);
         }
     }
+
+
+    public static CategoriesDao getInstance() {
+        return INSTANCE;
+    }
+
 
 }

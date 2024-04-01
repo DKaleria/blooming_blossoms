@@ -1,12 +1,13 @@
 package dubovikLera.dao;
 
+import dubovikLera.dto.ProductsDto;
 import dubovikLera.entity.Customers;
 import dubovikLera.entity.Favorites;
+import dubovikLera.entity.Orders;
 import dubovikLera.entity.Products;
 import dubovikLera.exception.DaoException;
 import dubovikLera.utils.ConnectionManager;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
@@ -56,7 +57,7 @@ public class FavoritesDao implements Dao<Integer, Favorites> {
         ) {
             statement.setTimestamp(1, object.getDate_added());
             statement.setInt(2, object.getCustomer_id().getCustomer_id());
-            statement.setInt(3, object.getProduct_id().getProduct_id());
+            statement.setInt(3, object.getProduct_id().getProductId());
 
 
 
@@ -114,7 +115,7 @@ public class FavoritesDao implements Dao<Integer, Favorites> {
                 Optional<Customers> customer = customersDao.findById(customerId);
 
                 ProductsDao productsDao = ProductsDao.getInstance();
-                Optional<Products> product = productsDao.findById(productId);
+                Optional<ProductsDto> product = productsDao.findById(productId);
 
                 if (customer.isPresent() && product.isPresent()) {
                     Favorites favorites = new Favorites(favoriteId, dateAdded, customer.get(), product.get());
@@ -152,7 +153,7 @@ public class FavoritesDao implements Dao<Integer, Favorites> {
                 Optional<Customers> customer = customersDao.findById(customerId);
 
                 ProductsDao productsDao = ProductsDao.getInstance();
-                Optional<Products> product = productsDao.findById(productId);
+                Optional<ProductsDto> product = productsDao.findById(productId);
 
                 if (customer.isPresent() && product.isPresent()) {
                     Favorites favorites = new Favorites(id, dateAdded, customer.get(), product.get());

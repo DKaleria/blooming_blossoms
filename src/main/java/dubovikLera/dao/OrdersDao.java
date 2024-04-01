@@ -1,5 +1,6 @@
 package dubovikLera.dao;
 
+import dubovikLera.dto.ProductsDto;
 import dubovikLera.entity.*;
 import dubovikLera.exception.DaoException;
 import dubovikLera.utils.ConnectionManager;

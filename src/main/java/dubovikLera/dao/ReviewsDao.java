@@ -1,8 +1,9 @@
 package dubovikLera.dao;
 
 
-import dubovikLera.entity.Customers;
+import dubovikLera.dto.ProductsDto;
 import dubovikLera.entity.OrderedProducts;
+import dubovikLera.entity.Orders;
 import dubovikLera.entity.Reviews;
 import dubovikLera.exception.DaoException;
 import dubovikLera.utils.ConnectionManager;

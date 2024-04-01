@@ -1,5 +1,7 @@
 package dubovikLera.dao;
 
+import dubovikLera.entity.Orders;
+
 import java.util.List;
 import java.util.Optional;
 
