@@ -1,11 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Product Catalog</title>
 </head>
 <body>
+<%@include file="header.jsp"%>
 <h1>Product Catalog</h1>
 <table>
     <thead>
