@@ -1,12 +1,15 @@
 package dubovikLera.dao;
 
 import dubovikLera.entity.Gender;
+import dubovikLera.entity.Reviews;
 import dubovikLera.entity.Role;
 import dubovikLera.entity.User;
 import dubovikLera.exception.DaoException;
-import dubovikLera.utils.ConnectionManager;
+import dubovikLera.utils.SessionManager;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+import org.hibernate.query.Query;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -18,93 +21,48 @@ import java.util.Optional;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class UserDao implements Dao<Long, User> {
+public class UserDao extends AbstractDao<Long, User> {
+    @Getter
     private static final UserDao INSTANCE = new UserDao();
-
-    private static final String SAVE_SQL =
-            "insert into users(name, birthday, email, password, role, gender) values (?, ?, ?, ?, ?, ?)";
-
+    private static final String GET_ALL_SQL = "select * from users";
     private static final String GET_BY_EMAIL_AND_PASSWORD_SQL =
-            "select * from users where email = ? and password = ?";
+            "select * from users where email = :email and password = :password";
 
-    @SneakyThrows
+
+
     public Optional<User> findByEmailAndPassword(String email, String password) {
-        try (var connection = ConnectionManager.get();
-             var preparedStatement = connection.prepareStatement(GET_BY_EMAIL_AND_PASSWORD_SQL)) {
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
-
-            var resultSet = preparedStatement.executeQuery();
-            User user = null;
-            if (resultSet.next()) {
-                user = buildEntity(resultSet);
-            }
-            return Optional.ofNullable(user);
+        try (var session = SessionManager.openSession()) {
+            return session.createNativeQuery(GET_BY_EMAIL_AND_PASSWORD_SQL, User.class)
+                    .setParameter("email", email)
+                    .setParameter("password", password)
+                    .uniqueResultOptional();
+        } catch (Exception e) {
+            throw new DaoException(e);
         }
     }
 
-    private User buildEntity(ResultSet resultSet) throws java.sql.SQLException {
-        return User.builder()
-                .id(resultSet.getObject("id", Integer.class))
-                .name(resultSet.getObject("name", String.class))
-                .birthday(resultSet.getObject("birthday", Date.class).toLocalDate())
-                .email(resultSet.getObject("email", String.class))
-                .password(resultSet.getObject("password", String.class))
-                .role(Role.find(resultSet.getObject("role", String.class)).orElse(null))
-                .gender(Gender.valueOf(resultSet.getObject("gender", String.class)))
-                .build();
-    }
-
-
-    @Override
-    public void create(User object) {
-
-    }
-
-    @Override
-    public boolean update(User entity) {
-        return false;
-    }
-
-
-    @Override
-    public Optional<User> findById(Long id) {
-        return Optional.empty();
-    }
-
-
     public User save(User entity) {
-        try (var connection = ConnectionManager.get();
-             var statement = connection.prepareStatement(SAVE_SQL, Statement.RETURN_GENERATED_KEYS)) {
-            statement.setObject(1, entity.getName());
-            statement.setObject(2, entity.getBirthday());
-            statement.setObject(3, entity.getEmail());
-            statement.setObject(4, entity.getPassword());
-            statement.setObject(5, entity.getRole().name());
-            statement.setObject(6, entity.getGender().name());
+        try (
+                var session = SessionManager.openSession()
+        ) {
+            session.beginTransaction();
 
-            statement.executeUpdate();
-            var keys = statement.getGeneratedKeys();
-            keys.next();
-            entity.setId(keys.getObject("id", Integer.class));
+            session.save(entity);
+
+            session.getTransaction().commit();
             return entity;
-
-        } catch (SQLException e) {
+        } catch (DaoException e) {
             throw new DaoException(e);
         }
     }
 
     @Override
-    public boolean delete(Long id) {
-        return false;
+    protected Class<User> getEntityClass() {
+        return User.class;
     }
 
     @Override
-    public List<User> getAll() {
-        return null;
-    }
-
-    public static UserDao getInstance() {
-        return INSTANCE;
+    protected String getEntityQuery() {
+        return GET_ALL_SQL;
     }
 }

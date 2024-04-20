@@ -16,10 +16,10 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public class UserService {
     private static final UserService INSTANCE = new UserService();
-    private final CreateUserMapper createUserMapper = CreateUserMapper.getInstance();
-    private final UserDao userDao = UserDao.getInstance();
+    private final CreateUserMapper createUserMapper = CreateUserMapper.getINSTANCE();
+    private final UserDao userDao = UserDao.getINSTANCE();
     private final CreateUserValidator createUserValidator = CreateUserValidator.getInstance();
-    private final UserMapper userMapper = UserMapper.getInstance();
+    private final UserMapper userMapper = UserMapper.getINSTANCE();
 
     public Optional<UserDto> login(String email, String password) {
         return userDao.findByEmailAndPassword(email, password).map(userMapper::mapFrom);

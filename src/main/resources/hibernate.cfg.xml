@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <property name="connection.username">postgres</property>
+    <property name="connection.password">Marina292828046</property>
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
+
+
+    <mapping class="dubovikLera.entity.Categories"/>
+    <mapping class="dubovikLera.entity.Customers"/>
+    <mapping class="dubovikLera.entity.Favorites"/>
+    <mapping class="dubovikLera.entity.Gender"/>
+    <mapping class="dubovikLera.entity.OrderedProducts"/>
+    <mapping class="dubovikLera.entity.Orders"/>
+    <mapping class="dubovikLera.entity.Products"/>
+    <mapping class="dubovikLera.entity.Reviews"/>
+    <mapping class="dubovikLera.entity.User"/>
+
+
+    </session-factory>
+</hibernate-configuration>

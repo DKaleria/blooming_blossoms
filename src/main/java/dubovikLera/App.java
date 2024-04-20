@@ -2,20 +2,19 @@ package dubovikLera;
 
 import dubovikLera.dao.FavoritesDao;
 import dubovikLera.dao.ProductsDao;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Hello world!
  *
  */
+@Slf4j
 public class App 
 {
     public static void main( String[] args )
     {
-        FavoritesDao favoritesDao = FavoritesDao.getInstance();
-        System.out.println(favoritesDao.getAll());
+      log.info("HI");
+      log.error("Fog");
 
-        System.out.println();
-        ProductsDao productsDao = ProductsDao.getInstance();
-        System.out.println(productsDao.findById(2));
     }
 }

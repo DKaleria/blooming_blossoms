@@ -25,8 +25,8 @@
             <td>${product.description}</td>
             <td>${product.price}</td>
             <td>${product.availability}</td>
-            <td>${product.categories.name}</td>
-            <td>${product.quantityInStock}</td>
+            <td>${product.category_id.name}</td>
+            <td>${product.quantity_in_stock}</td>
         </tr>
     </c:forEach>
     </tbody>

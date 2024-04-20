@@ -3,11 +3,11 @@ package dubovikLera.dto;
 import dubovikLera.entity.Gender;
 import dubovikLera.entity.Role;
 import lombok.Builder;
-import lombok.Value;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-@Value
+@Data
 @Builder
 public class UserDto {
     Integer id;
