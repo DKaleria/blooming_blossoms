@@ -1,6 +1,6 @@
 package dubovikLera.exception;
 
-import dubovikLera.validator.Error;
+
 import lombok.Getter;
 
 import java.util.List;

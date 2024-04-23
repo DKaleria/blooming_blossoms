@@ -11,11 +11,11 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "name" )
-@ToString(exclude = "category_id")
 @Builder
 @Entity
+@ToString(exclude = {"favorites", "orderedProducts", "category_id"})
 @Table(name = "products")
-public class Products {
+public class Products extends AbstractEntity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer product_id;
@@ -37,10 +37,10 @@ public class Products {
     private Integer quantity_in_stock;
 
     @Builder.Default
-    @OneToMany(mappedBy = "product_id")
+    @OneToMany(mappedBy = "product_id", fetch = FetchType.LAZY)
     private List<Favorites> favorites = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "product_id")
+    @OneToMany(mappedBy = "product_id", fetch = FetchType.LAZY)
     private List<OrderedProducts> orderedProducts = new ArrayList<>();
 }

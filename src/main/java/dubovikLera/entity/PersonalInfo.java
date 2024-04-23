@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -18,9 +20,14 @@ import java.time.LocalDate;
 @Embeddable
 public class PersonalInfo {
     @Column(nullable = false)
+    @NotNull(message = "Name must not be null")
     private String name;
-    @Column(name = "birthday",nullable = false)
+    @Column(name = "birthday", nullable = false)
+
+    @NotNull(message = "Birthday must not be null")
     private LocalDate birthday;
+
     @Column(nullable = false)
+    @NotNull(message = "Password must not be null")
     private String password;
 }

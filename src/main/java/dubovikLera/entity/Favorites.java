@@ -1,10 +1,7 @@
 package dubovikLera.entity;
 
 import dubovikLera.dto.ProductsDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,18 +13,20 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Builder
 @Entity
+@ToString(exclude = {"customer_id", "product_id"})
 @Table(name = "categories")
-public class Favorites {
+public class Favorites extends AbstractEntity<Integer>{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Integer favorite_id;
     @Column(nullable = false)
     private Timestamp date_added;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customers customer_id;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Products product_id;
     public void setCustomers(Customers customers){

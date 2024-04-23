@@ -1,84 +1,67 @@
 package dubovikLera.dao;
 
 
-import dubovikLera.exception.DaoException;
+import dubovikLera.entity.AbstractEntity;
+import dubovikLera.entity.BaseEntity;
 import dubovikLera.utils.SessionManager;
+import lombok.Cleanup;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.query.Query;
 
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import static lombok.AccessLevel.PRIVATE;
 import static lombok.AccessLevel.PROTECTED;
 
 @NoArgsConstructor(access = PROTECTED)
-public abstract class AbstractDao<K, T> implements Dao<K, T> {
+public abstract class AbstractDao<K extends Serializable,E extends AbstractEntity<K>> implements Dao<K, E> {
     @Getter
     private final static SessionManager sessionManager = new SessionManager();
 
+    private Class<E> clazz = getEntityClass();
+
     @Override
-    public void create(T object) {
-        try (var session = sessionManager.openSession()) {
-            session.beginTransaction();
-            session.save(object);
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            throw new DaoException(e);
-        }
+    public E save(E entity) {
+        @Cleanup var session = sessionManager.openSession();
+        session.save(entity);
+        return entity;
     }
 
     @Override
-    public boolean update(T object) {
-        try (var session = sessionManager.openSession()) {
-            session.beginTransaction();
-            session.update(object);
-            session.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            throw new DaoException(e);
-        }
+    public void create(E object) {
+        @Cleanup var session = sessionManager.openSession();
+        session.save(object);
+        session.flush();
     }
 
     @Override
-    public boolean delete(K id) {
-        try (var session = sessionManager.openSession()) {
-            session.beginTransaction();
-            T entity = session.get(getEntityClass(), (Serializable) id);
-            if (entity != null) {
-                session.delete(entity);
-                session.getTransaction().commit();
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            throw new DaoException(e);
-        }
+    public void update(E object) {
+        @Cleanup var session = sessionManager.openSession();
+        session.merge(object);
     }
 
     @Override
-    public List<T> getAll() {
-        try (var session = sessionManager.openSession()) {
-            Query<T> query = session.createNativeQuery(getEntityQuery(), getEntityClass());
-            return query.list();
-        } catch (Exception e) {
-            throw new DaoException(e);
-        }
+    public void delete(K id) {
+        @Cleanup var session = sessionManager.openSession();
+        session.delete(id);
+        session.flush();
     }
 
     @Override
-    public Optional<T> findById(K id) {
-        try (var session = sessionManager.openSession()) {
-            T entity = session.get(getEntityClass(), (Serializable) id);
-            return Optional.ofNullable(entity);
-        } catch (Exception e) {
-            throw new DaoException(e);
-        }
+    public List<E> getAll() {
+        @Cleanup var session = sessionManager.openSession();
+        var criteria = session.getCriteriaBuilder().createQuery(clazz);
+        criteria.from(clazz);
+        return session.createQuery(criteria).getResultList();
     }
 
-    protected abstract Class<T> getEntityClass();
-    protected abstract String getEntityQuery();
+    @Override
+    public Optional<E> findById(K id) {
+        @Cleanup var session = sessionManager.openSession();
+        return Optional.ofNullable(session.find(clazz, id));
+    }
+
+    protected abstract Class<E> getEntityClass();
 }

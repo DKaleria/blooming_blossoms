@@ -1,9 +1,6 @@
 package dubovikLera.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -17,8 +14,9 @@ import static javax.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @Builder
 @Entity
+@ToString(exclude = {"orders", "favorites"})
 @Table(name = "customers")
-public class Customers {
+public class Customers extends AbstractEntity<Integer> {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Integer customer_id;
@@ -32,10 +30,10 @@ public class Customers {
     private String contact_details;
 
     @Builder.Default
-    @OneToMany(mappedBy = "customer_id")
+    @OneToMany(mappedBy = "customer_id", fetch = FetchType.LAZY)
     private List<Favorites> favorites = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "customer_id")
+    @OneToMany(mappedBy = "customer_id", fetch = FetchType.LAZY)
     private List<Orders> orders = new ArrayList<>();
 }

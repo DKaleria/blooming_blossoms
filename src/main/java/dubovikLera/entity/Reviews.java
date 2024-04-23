@@ -15,7 +15,7 @@ import java.util.Objects;
 @Builder
 @Entity
 @Table(name = "reviews")
-public class Reviews {
+public class Reviews extends AbstractEntity<Integer> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer review_id;
@@ -24,6 +24,7 @@ public class Reviews {
     private Integer rating;
     @Column(nullable = false)
     private LocalDateTime date;
+
     @OneToOne
     @JoinColumn(name = "ordered_product_id")
     private OrderedProducts ordered_product_id;

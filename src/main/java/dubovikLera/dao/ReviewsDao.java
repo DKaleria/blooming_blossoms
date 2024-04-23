@@ -1,6 +1,7 @@
 package dubovikLera.dao;
 
 
+import dubovikLera.entity.Customers;
 import dubovikLera.entity.Favorites;
 import dubovikLera.entity.OrderedProducts;
 import dubovikLera.entity.Reviews;
@@ -23,21 +24,8 @@ public class ReviewsDao extends AbstractDao<Integer, Reviews> {
     @Getter
     private final static ReviewsDao INSTANCE = new ReviewsDao();
 
-    public static ReviewsDao getInstance() {
-        return INSTANCE;
-    }
-
-    private static final String GET_ALL_SQL = """
-            select review_id, comment, rating, date, orders_product_id from reviews
-            """;
-
     @Override
     protected Class<Reviews> getEntityClass() {
         return Reviews.class;
-    }
-
-    @Override
-    protected String getEntityQuery() {
-        return GET_ALL_SQL;
     }
 }

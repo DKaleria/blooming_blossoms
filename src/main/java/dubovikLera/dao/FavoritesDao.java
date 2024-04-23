@@ -21,17 +21,9 @@ public class FavoritesDao extends AbstractDao<Integer, Favorites> {
     @Getter
     private final static FavoritesDao INSTANCE = new FavoritesDao();
 
-    private static final String GET_ALL_SQL = """
-            select favorite_id, date_added, customer_id, product_id from favorites
-            """;
     @Override
     protected Class<Favorites> getEntityClass() {
         return Favorites.class;
-    }
-
-    @Override
-    protected String getEntityQuery() {
-        return GET_ALL_SQL;
     }
 }
 

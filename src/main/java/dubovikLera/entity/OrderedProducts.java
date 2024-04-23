@@ -1,10 +1,7 @@
 package dubovikLera.entity;
 
 import dubovikLera.dto.ProductsDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -13,14 +10,15 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
+@ToString(exclude = {"order_id", "product_id"})
 @Table(name = "ordered_products")
-public class OrderedProducts {
+public class OrderedProducts extends AbstractEntity<Integer> {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Orders order_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Products product_id;
 

@@ -2,7 +2,9 @@ package dubovikLera.dao;
 
 import dubovikLera.dto.CategoriesDto;
 import dubovikLera.dto.ProductsDto;
+import dubovikLera.entity.Customers;
 import dubovikLera.entity.Favorites;
+import dubovikLera.entity.OrderedProducts;
 import dubovikLera.entity.Products;
 import dubovikLera.exception.DaoException;
 import lombok.Getter;
@@ -21,17 +23,8 @@ import static lombok.AccessLevel.PRIVATE;
 public class ProductsDao extends AbstractDao<Integer, Products> {
     @Getter
     private final static ProductsDao INSTANCE = new ProductsDao();
-    private static final String GET_ALL_SQL = """
-            select product_id, name, description, price, availability, image, category_id, quantity_in_stock from products
-            """;
-
     @Override
     protected Class<Products> getEntityClass() {
         return Products.class;
-    }
-
-    @Override
-    protected String getEntityQuery() {
-        return GET_ALL_SQL;
     }
 }

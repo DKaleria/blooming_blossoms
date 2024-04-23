@@ -1,9 +1,6 @@
 package dubovikLera.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,8 +13,9 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 @Entity
+@ToString(exclude = {"customer_id", "orderedProducts"})
 @Table(name = "categories")
-public class Orders {
+public class Orders extends AbstractEntity<Integer>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer order_id;
@@ -32,11 +30,11 @@ public class Orders {
     @Enumerated(EnumType.STRING)
     private StatusDelivery statusDelivery;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customers customer_id;
 
     @Builder.Default
-    @OneToMany(mappedBy = "order_id")
+    @OneToMany(mappedBy = "order_id", fetch = FetchType.LAZY)
     private List<OrderedProducts> orderedProducts = new ArrayList<>();
 }
