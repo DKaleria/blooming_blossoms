@@ -1,4 +1,4 @@
-package dubovikLera.entity;
+package dubovikLera.entity.enums;
 
 public enum StatusPayment {
     EXPOSED("выставлен"),

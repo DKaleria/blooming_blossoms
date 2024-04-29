@@ -20,7 +20,7 @@
     <mapping class="dubovikLera.entity.Categories"/>
     <mapping class="dubovikLera.entity.Customers"/>
     <mapping class="dubovikLera.entity.Favorites"/>
-    <mapping class="dubovikLera.entity.Gender"/>
+    <mapping class="dubovikLera.entity.enums.Gender"/>
     <mapping class="dubovikLera.entity.OrderedProducts"/>
     <mapping class="dubovikLera.entity.Orders"/>
     <mapping class="dubovikLera.entity.Products"/>

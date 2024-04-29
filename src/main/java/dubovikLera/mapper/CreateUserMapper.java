@@ -1,8 +1,8 @@
 package dubovikLera.mapper;
 
 import dubovikLera.dto.CreateUserDto;
-import dubovikLera.entity.Gender;
-import dubovikLera.entity.Role;
+import dubovikLera.entity.enums.Gender;
+import dubovikLera.entity.enums.Role;
 import dubovikLera.entity.User;
 
 

@@ -15,6 +15,8 @@ public class UserMapper implements Mapper<UserDto, User> {
                 .password(user.getPersonalInfo().getPassword())
                 .role(user.getRole())
                 .gender(user.getGender())
+                .banned(user.isBanned())
+                .active(user.isActive())
                 .build();
     }
 

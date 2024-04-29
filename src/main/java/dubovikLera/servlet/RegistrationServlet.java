@@ -1,9 +1,9 @@
 package dubovikLera.servlet;
 
 import dubovikLera.dto.CreateUserDto;
-import dubovikLera.entity.Gender;
+import dubovikLera.entity.enums.Gender;
 import dubovikLera.entity.PersonalInfo;
-import dubovikLera.entity.Role;
+import dubovikLera.entity.enums.Role;
 import dubovikLera.exception.ValidationException;
 import dubovikLera.service.UserService;
 import dubovikLera.utils.JspHelper;
@@ -51,7 +51,9 @@ public class RegistrationServlet extends HttpServlet {
 
         try {
             log.info("Attempting to create new user: " + userDto.getEmail());
+
             userService.create(userDto);
+
             log.info("New user created: " + userDto.getEmail());
             resp.sendRedirect("/login");
         } catch (ValidationException e) {

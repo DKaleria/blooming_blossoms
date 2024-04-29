@@ -1,0 +1,335 @@
+* {
+    margin: 0; /*определяет внешний отступ на всех четырёх сторонах элемента*/
+    padding: 0; /*внутренний отступ*/
+    box-sizing: border-box; /*говорит браузеру учитывать любые границы и внутренние отступы в значениях, к-е укзаны в ширине и высоте эл-та*/
+}
+
+:root { /*безопасная замена селектора html*/
+    --index: calc(1vw + 1vh);
+    --transition: 1.5s cubic-bezier(.05, .5, 0, 1);
+}
+@font-face {
+    font-family: "orsay";
+    src: url(orsay.otf) format("opentype");
+    font-family: "manrope";
+    src:url(light.otf) format("opentype");
+}
+
+body {
+    background-color: #383F4B;;
+    color: #fff;
+    font-family: kamerik-3d;
+}
+
+h5 {
+    font-family: "Book Antiqua";
+    color: black;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.logo {
+    font-family: "orsay", serif;
+    text-transform: uppercase;
+    text-align: left;
+    font-size: 172px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 90%;
+    --logo-size: calc(var(--index) * 7.8);
+    width: calc(var(--logo-size)*1000);
+    height: var(--logo-size);
+    background-repeat: no-repeat;
+    position: absolute;
+    left: calc(var(--index) * 6);
+    top: calc(var(--index) * 8.5);
+    z-index: 1;
+}
+
+.layers {
+    perspective: 1000px;
+    overflow: hidden;
+}
+
+.layers__container {
+    height: 100vh;
+    min-height: 500px;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform var(--transition);
+}
+
+.layers__item {
+    position: absolute;
+    inset: -5vw;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.layer-1 {
+    transform: translateZ(-55px) scale(1.06);
+}
+.layer-3 {
+    transform: translateZ(180px) scale(.8);
+}
+
+.hero-content {
+    text-transform: lowercase;
+    font-family: manrope, "DejaVu Sans Light";
+    letter-spacing: calc(var(--index) * 0.05);
+    line-height: 10.75em; /*величина пространства (расстояие) между верхней ч. и надписи с записаться*/
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end ; /*эл-ты выравниваются по нижнему краю*/
+    margin-left: auto;
+    margin-right: 20px;
+
+}
+
+.hero-content a {
+    color: #fff;
+    font-family: manrope, "DejaVu Sans Light","Inter Semi Bold";
+    font-size: calc(var(--index) * 1); /*размер шрифта сверху*/
+    margin-left: 90px;/*расстояние между эл-ми (о нас/услуги/т.п.)*/
+    position: relative; /*отн-е позиционирование: можно изменять окончательное плоложение эл-та*/
+    right: 100px;
+}
+.hero-content a:hover {
+    color: #ccc; /*hover- когда наводишь мышью, то цвет меняется на укзанный*/
+}
+.layers__item.layer-3 {
+    position: sticky; /*"прилипающие эл-ты", к-е должны быть всегда видны пользователю*/
+    top: 0;
+    background-color: transparent;
+}
+
+.layers__item.layer-3 .hero-content {
+    flex-direction: row; /*расположение эл-в в строку (о нас/услуги/т.п.)*/
+    margin-top: calc(var(--index) * 2); /* внешний отступ в верхней части элемента*/
+}
+.part-1, .part-2 {
+    display: block;
+}
+
+.line-1 {
+    margin-bottom: 10px;
+}
+
+.button-start {
+    font-family: manrope, "DejaVu Sans Light";
+    text-transform: capitalize;
+    font-size: calc(var(--index) * 1.2); /*размер всей кнопки*/
+    letter-spacing: 0.025vw;
+    padding: calc(var(--index) * 0.3) calc(var(--index) * 2.8); /*в ширину и в длину*/
+    background-color: transparent;
+    color: #fff;
+    border-radius: 20em; /*границы, позволяя делать круг или эллпис*/
+    border: rgb(255 255 255 / 0.4) 3px solid;
+    outline: solid #fff;
+    cursor: pointer;
+}
+.button-start:hover{
+    color:#ccc;
+}
+
+
+.container {
+    display: flex;
+}
+.text {
+    font-family: manrope, "DejaVu Sans Light";
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    width: 60%;
+    padding: 0px;
+    display: block;
+    margin-left: 130px;
+}
+.text-h1{ /*О нас*/
+    font-family: manrope, "DejaVu Sans Light";
+    font-size: 100px;
+    width: 80%;
+    padding: 50px;
+    text-align: justify;
+    margin-left: 80px;
+    margin-top: 50px;
+}
+
+.rounded-image {
+    border-radius: 5%;
+    overflow: auto; /*скрывает часть содержимого, которая не поместилась в контейнере*/
+    width: 500px;
+    height: 700px;
+    margin-right: 200px;
+    margin-bottom: 50px;
+}
+.rounded-image img{ /*округление частей по размерам*/
+    width: 100%;
+    height: 700px;
+    display: block;
+    background: #6260B3;
+}
+.center-image{
+    display: flex;
+    flex-direction: row;
+    width: 2878px;
+    height: 750px;
+    margin-bottom: 100px;
+    margin-top: 100px;
+    background-size: cover;
+
+}
+
+
+.layers__item-02 {
+    position: absolute;
+    inset: 0vh;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container-02{
+
+    width: 315px;
+    height: 450px;
+    margin-left: 120px;
+    margin-top: 200px;
+    border-radius: 5%;
+    position: relative;
+}
+.container-02 img{
+    width: auto;
+    height: auto;
+}
+
+.container-04{
+
+    width: 330px;
+    height: 378px;
+    margin-left: 120px;
+    margin-top: 200px;
+    border-radius: 5%;
+    position: relative;
+}
+.container-04 img{
+    width: auto;
+    height: auto;
+}
+.button-record{
+    font-family: manrope, "DejaVu Sans Light";
+    text-transform: capitalize;
+    font-size: calc(var(--index) * 0.8);
+    letter-spacing: 0.025vw;
+    padding: calc(var(--index) * 0.05) calc(var(--index) * 1.2); /*в ширину и в длину*/
+    background-color: transparent;
+    color: #fff;
+    border-radius: 20em;
+    border: rgb(255 255 255 / 0.4) 3px solid;
+    outline: solid #fff;
+    cursor: pointer;
+    margin-top: 330px;
+    margin-left: 70px;
+    z-index: 2;
+}
+.button-record:hover{
+    color:#ccc;
+}
+.text-h2 {
+    font-family: manrope, "DejaVu Sans Light";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    width: 60%;
+    padding: 0;
+    display: block;
+    margin-left: 200px;
+    margin-top: 25px;
+}
+.container-03{
+    width: 583px;
+    height: 750px;
+}
+.container-03 img{
+    width: auto;
+    height: auto;
+}
+.mini-logo {
+    font-family: "orsay", serif;
+    text-transform: uppercase;
+    text-align: left;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 70;
+    line-height: 90%;
+    --logo-size: calc(var(--index) * 1);
+    width: calc(var(--logo-size) * 10);
+    height: var(--logo-size);
+    background-repeat: no-repeat;
+    position: absolute;
+    left: calc(var(--index) * 2);
+    bottom: calc(var(--index) * 4);
+    z-index: 1;
+
+}
+.work{
+    font-family: manrope, "DejaVu Sans Light";
+    font-size:40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: block;
+    width: auto;
+    height: 691px;
+    margin-left: 10px;
+    margin-top: 300px;
+
+}
+.logo-2{
+    font-family: manrope, "DejaVu Sans Light";
+    text-transform: capitalize;
+    text-align: left;
+    font-size: 90px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 90%;
+    --logo-size: calc(var(--index) * 7.8);
+    width: calc(var(--logo-size)*1000);
+    height: var(--logo-size);
+    background-repeat: no-repeat;
+    position: absolute;
+    left: calc(var(--index) * 1);
+    top: calc(var(--index) * 6.3);
+    margin-left: 160px;
+    margin-top: -90px;
+    z-index: 1;
+}
+
+.button-lists{
+    font-family: manrope, "DejaVu Sans Light";
+    text-transform: capitalize;
+    font-size: calc(var(--index) * 0.8);
+    letter-spacing: 0.025vw;
+    padding: calc(var(--index) * 0.5) calc(var(--index) * 0.2); /*в ширину и в длину*/
+    background-color: transparent;
+    color: #fff;
+    border-radius: 20em;
+    border: rgb(255 255 255 / 0.4) 3px solid;
+    outline: solid #fff;
+    cursor: pointer;
+    margin-top: 100px;
+    margin-left: 70px;
+}
+.button-lists:hover{
+    color:#ccc;
+}

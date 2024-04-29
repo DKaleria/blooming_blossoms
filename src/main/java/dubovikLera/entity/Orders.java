@@ -1,5 +1,7 @@
 package dubovikLera.entity;
 
+import dubovikLera.entity.enums.StatusDelivery;
+import dubovikLera.entity.enums.StatusPayment;
 import lombok.*;
 
 import javax.persistence.*;
@@ -7,14 +9,14 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
 @ToString(exclude = {"customer_id", "orderedProducts"})
-@Table(name = "categories")
+@Table(name = "orders")
 public class Orders extends AbstractEntity<Integer>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +27,11 @@ public class Orders extends AbstractEntity<Integer>{
 
     @Column(name = "status_payment")
     @Enumerated(EnumType.STRING)
-    private StatusPayment statusPayment;
-    @Column(name = "status_delivery")
+    private StatusPayment status_payment;
+
     @Enumerated(EnumType.STRING)
-    private StatusDelivery statusDelivery;
+    @Column(name = "status_delivery")
+    private StatusDelivery status_delivery;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
@@ -36,5 +39,5 @@ public class Orders extends AbstractEntity<Integer>{
 
     @Builder.Default
     @OneToMany(mappedBy = "order_id", fetch = FetchType.LAZY)
-    private List<OrderedProducts> orderedProducts = new ArrayList<>();
+    private List<OrderedProducts> ordered_products = new ArrayList<>();
 }

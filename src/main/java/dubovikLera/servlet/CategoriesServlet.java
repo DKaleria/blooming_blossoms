@@ -2,6 +2,7 @@ package dubovikLera.servlet;
 
 import dubovikLera.dto.CategoriesDto;
 import dubovikLera.entity.Categories;
+import dubovikLera.entity.Products;
 import dubovikLera.service.CategoriesService;
 import dubovikLera.utils.JspHelper;
 import jakarta.servlet.ServletException;
@@ -26,5 +27,13 @@ public class CategoriesServlet extends HttpServlet {
         List<Categories> categories = categoriesService.getAllCategories();
         request.setAttribute("categories", categories);
         request.getRequestDispatcher(JspHelper.getPath("categories")).forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String categoryId = request.getParameter("category_id");
+        List<Products> products = categoriesService.getProductsByCategoryId(Integer.parseInt(categoryId));
+        request.setAttribute("products", products);
+        request.getRequestDispatcher(JspHelper.getPath("catalog")).forward(request, response);
     }
 }

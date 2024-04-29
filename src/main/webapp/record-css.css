@@ -1,0 +1,276 @@
+* {
+    margin: 0; /*определяет внешний отступ на всех четырёх сторонах элемента*/
+    padding: 0; /*внутренний отступ*/
+    box-sizing: border-box; /*говорит браузеру учитывать любые границы и внутренние отступы в значениях, к-е укзаны в ширине и высоте эл-та*/
+}
+
+:root { /*безопасная замена селектора html*/
+    --index: calc(1vw + 1vh);
+    --transition: 1.5s cubic-bezier(.05, .5, 0, 1);
+}
+
+@font-face {
+    font-family: "orsay";
+    src: url(orsay.otf) format("opentype");
+    font-family: "manrope";
+    src: url(light.otf) format("opentype");
+}
+
+body {
+    background-color: #383F4B;;
+    color: #fff;
+    font-family: kamerik-3d;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    position: absolute;
+    font-family: manrope, "DejaVu Sans Light";
+    text-transform: capitalize;
+    text-align: left;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 90%;
+    --logo-size: calc(var(--index) * 0);
+    width: calc(var(--logo-size) * 1000);
+    height: var(--logo-size);
+    background-repeat: no-repeat;
+    position: absolute;
+    left: calc(var(--index) * 14);
+    top: calc(var(--index) * 4);
+    z-index: 1;
+}
+
+.mini-logo {
+    font-family: "orsay", serif;
+    text-transform: uppercase;
+    text-align: left;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 70;
+    line-height: 90%;
+    --logo-size: calc(var(--index) * 1);
+    width: calc(var(--logo-size) * 10);
+    height: var(--logo-size);
+    background-repeat: no-repeat;
+    position: absolute;
+    left: calc(var(--index) * 2);
+    bottom: calc(var(--index) * 7);
+    z-index: 1;
+
+}
+
+.layers {
+    perspective: 1000px;
+    overflow: hidden;
+}
+
+.layers__container {
+    height: 100vh;
+    min-height: 500px;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform var(--transition);
+}
+
+.layers__item {
+    position: absolute;
+    inset: -5vw;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.layer-3 {
+    transform: translateZ(180px) scale(.8);
+}
+
+.hero-content {
+    text-transform: lowercase;
+    font-family: manrope, "DejaVu Sans Light";
+    letter-spacing: calc(var(--index) * 0.05);
+    line-height: 10.75em; /*величина пространства (расстояие) между верхней ч. и надписи с записаться*/
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /*эл-ты выравниваются по нижнему краю*/
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.hero-content a {
+    color: #fff;
+    font-family: manrope, "DejaVu Sans Light", "Inter Semi Bold";
+    font-size: calc(var(--index) * 1); /*размер шрифта сверху*/
+    margin-left: 90px; /*расстояние между эл-ми (о нас/услуги/т.п.)*/
+    position: relative; /*отн-е позиционирование: можно изменять окончательное плоложение эл-та*/
+    right: 100px;
+}
+
+.hero-content a:hover {
+    color: #ccc; /*hover- когда наводишь мышью, то цвет меняется на укзанный*/
+}
+
+.layers__item.layer-3 {
+    position: sticky; /*"прилипающие эл-ты", к-е должны быть всегда видны пользователю*/
+    top: 0;
+    background-color: transparent;
+}
+
+.layers__item.layer-3 .hero-content {
+    flex-direction: row; /*расположение эл-в в строку (о нас/услуги/т.п.)*/
+    margin-top: calc(var(--index) * 2); /* внешний отступ в верхней части элемента*/
+}
+
+.part-1, .part-2 {
+    display: block;
+}
+
+.line-1 {
+    margin-bottom: 10px;
+}
+
+.button-1 {
+    width: 351px;
+    height: 48px;
+    border-radius: 46px;
+    font-family: manrope, "DejaVu Sans Light";
+    color: white;
+    text-transform: capitalize;
+    letter-spacing: 0.025vw;
+    background-color: #4F5A89;
+    border: white;
+    cursor: pointer;
+    margin-left: -5px;
+    margin-top: 55px;
+    margin-bottom: 16px;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.button-2 {
+    margin-left: -5px;
+    width: 351px;
+    height: 48px;
+    border-radius: 46px;
+    font-family: manrope, "DejaVu Sans Light";
+    color: #6260B3;
+    text-transform: capitalize;
+    letter-spacing: 0.025vw;
+    border: 2px solid #6260B3;
+    background: #FFF;
+    cursor: pointer;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.button-1.button-2:hover {
+    color: #ccc;
+}
+
+.button-1, .button-2 {
+    display: block;
+}
+
+
+.container {
+    display: flex;
+    position: relative;
+}
+
+
+.rounded-image { /*именно положение картинки*/
+    width: 100%;
+    height: 600px;
+    margin-left: 240px;
+    margin-top: -130px;
+
+}
+
+.rounded-image img { /*изменение самой картинки*/
+    width: 1300px;
+    height: 780px;
+    border-radius: 45px;
+
+}
+
+form {
+    position: absolute;
+    border-radius: 40px;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    width: 60%;
+    padding: 0;
+    display: block;
+    margin-left: 370px;
+    margin-top: -520px;
+}
+
+
+.question {
+    font-family: manrope, "DejaVu Sans Light";
+    color: white;
+
+
+}
+
+.input {
+    width: 351px;
+    height: 48px;
+    border-radius: 46px;
+    background: #D9D9D9;
+    font-family: manrope, "DejaVu Sans Light";
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    margin-left: -10px;
+    color: black;
+}
+
+.modal {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 30%;
+    width: 100%;
+    height: 50%;
+    background-color: white;
+}
+.modal.show{
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    color: black;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 5px;
+}
+.close {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}

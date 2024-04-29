@@ -1,5 +1,9 @@
 package dubovikLera.servlet;
 
+import dubovikLera.dto.UserDto;
+import dubovikLera.entity.User;
+import dubovikLera.entity.enums.Role;
+import dubovikLera.mapper.UserMapper;
 import dubovikLera.service.UserService;
 import dubovikLera.utils.JspHelper;
 import jakarta.servlet.ServletException;
@@ -32,19 +36,44 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("User {} attempted to login at {}", req.getParameter("email"), LocalDateTime.now());
         userService.login(req.getParameter("email"), req.getParameter("password"))
-                .ifPresentOrElse(userDto -> onLoginSuccess(userDto, req, resp),() -> onLoginFail(req, resp));
+                .ifPresentOrElse(userDto -> {
+                    try {
+                        onLoginSuccess(userDto, req, resp);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }, () -> onLoginFail(req, resp));
     }
 
     @SneakyThrows
     private void onLoginFail(HttpServletRequest req, HttpServletResponse resp) {
         log.warn("Login failed for user {} at {}", req.getParameter("email"), LocalDateTime.now());
-        resp.sendRedirect("/login?error&email="+ req.getParameter("email"));
+        resp.sendRedirect("/login?error&email=" + req.getParameter("email"));
     }
 
     @SneakyThrows
-    private void onLoginSuccess(Object userDto, HttpServletRequest req, HttpServletResponse resp) {
+    private void onLoginSuccess(Object userDto, HttpServletRequest req, HttpServletResponse resp) throws IOException {
         log.info("User {} logged in successfully at {}", req.getRemoteUser(), LocalDateTime.now());
         req.getSession().setAttribute("user", userDto);
-        resp.sendRedirect("/redirect");
+
+        if (userDto instanceof UserDto) {
+            UserDto mappedUserDto = (UserDto) userDto;
+            if (mappedUserDto.getRole() == Role.ADMIN) {
+                 if (mappedUserDto.isActive() == false) {
+                    resp.sendRedirect("/blocked");
+                    return;
+                } else if (mappedUserDto.isActive() == true) {
+                    resp.sendRedirect("/admin");
+                    return;
+                }
+
+
+            } else if (mappedUserDto.isActive() == false) {
+                resp.sendRedirect("/blocked");
+                return;
+            } else if (mappedUserDto.isActive() == true) resp.sendRedirect("/redirect");
+        }
+
+
     }
 }

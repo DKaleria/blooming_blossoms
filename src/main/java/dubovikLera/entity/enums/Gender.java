@@ -1,4 +1,4 @@
-package dubovikLera.entity;
+package dubovikLera.entity.enums;
 
 import java.util.Arrays;
 import java.util.Optional;

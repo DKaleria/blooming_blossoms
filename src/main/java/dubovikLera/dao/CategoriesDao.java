@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import static lombok.AccessLevel.PRIVATE;
 
 @NoArgsConstructor(access = PRIVATE)
-public class CategoriesDao extends AbstractDao<Integer, Categories> {
+public class CategoriesDao  extends AbstractDao<Integer, Categories> {
     @Getter
     private final static CategoriesDao INSTANCE = new CategoriesDao();
 

@@ -6,6 +6,8 @@ import dubovikLera.dto.ProductsDto;
 import dubovikLera.entity.Products;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +24,10 @@ public class ProductsService {
         return productsDao.getAll();
     }
 
-    public Optional<Products> getProductsByCategory(int categoryId) {
-        return productsDao.findById(categoryId);
+    public List<Products> getProductsByCategory(int categoryId) {
+        return productsDao.findById(categoryId)
+                .map(Collections::singletonList)
+                .orElse(Collections.emptyList());
     }
     public static ProductsService getInstance() {
         return INSTANCE;

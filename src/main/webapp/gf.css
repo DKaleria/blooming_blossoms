@@ -1,0 +1,19 @@
+.button-Menu3{
+    margin-left: -5px;
+    width: 351px;
+    height: 48px;
+    border-radius: 46px;
+    font-family: manrope, "DejaVu Sans Light";
+    color: #6260B3;
+    text-transform: capitalize;
+    letter-spacing: 0.025vw;
+    border: 2px solid #6260B3;
+    background: #FFF;
+    cursor: pointer;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    cursor: pointer;
+}
+

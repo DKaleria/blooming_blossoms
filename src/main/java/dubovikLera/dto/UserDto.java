@@ -1,7 +1,7 @@
 package dubovikLera.dto;
 
-import dubovikLera.entity.Gender;
-import dubovikLera.entity.Role;
+import dubovikLera.entity.enums.Gender;
+import dubovikLera.entity.enums.Role;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,4 +17,6 @@ public class UserDto {
     String password;
     Role role;
     Gender gender;
+    boolean banned;
+    boolean active;
 }

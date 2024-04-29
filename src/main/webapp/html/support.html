@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Обратная связь</title>
+    <link rel="stylesheet" href="support.css">
+
+</head>
+<body>
+<section class="layers">
+    <div class="layers__container">
+        <div class="layers__item layer-1" style="background-image: url(../images/background/support.png);"></div>
+        <div class="layers__item layer-3">
+            <div class="hero-content">
+                <a href="#" style="text-decoration: none;">О нас</a>
+                <a href="#" style="text-decoration: none;">Услуги</a>
+                <a href="#" style="text-decoration: none;">Цены</a>
+                <a href="#" style="text-decoration: none;">Мастера</a>
+                <a href="#" style="text-decoration: none;" onclick="window.location.href='support.html';">Обратная связь</a>
+            </div>
+        </div>
+        <h1 class=logo>
+            <span class="part-1">Появились вопросы?</span>
+        </h1>
+        <h3 class="logo-small">
+            <span>оставьте Вашу электронную почту: менеджер свяжется с вами</span>
+        </h3>
+
+        <div class="container">
+            <form id="questions">
+                <div id="q1" class="question">
+                    <p>Имя</p>
+                    <input type="text" required class="input"><br>
+                </div>
+
+                <div id="q2" class="question">
+                    <p>Электронная почта</p>
+                    <input type="email" required class="input"><br>
+                </div>
+
+                <div id="q3" class="question">
+                    <p>Ваш вопрос</p>
+                    <input type="text" required class="input"><br>
+                </div>
+
+
+                <div>
+                  <button onclick="clearAnswers()" class="button-1">Напишите мне</button>
+                </div>
+            </form>
+
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p id="result"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="layers__item layer-3">
+        <div class="mini-logo">
+            <span class="part-1">Art</span>
+            <span class="part-2">of beauty</span>
+        </div>
+    </div>
+</section>
+
+
+<script src="js/record.js"></script>
+
+
+</body>
+</html>

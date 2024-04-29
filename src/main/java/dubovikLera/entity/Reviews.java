@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.tool.schema.extract.spi.TableInformation;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 @Data
@@ -23,7 +25,7 @@ public class Reviews extends AbstractEntity<Integer> {
     @Column(nullable = false, precision = 2, scale = 0)
     private Integer rating;
     @Column(nullable = false)
-    private LocalDateTime date;
+    private Timestamp date;
 
     @OneToOne
     @JoinColumn(name = "ordered_product_id")
