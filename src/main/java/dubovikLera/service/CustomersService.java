@@ -29,6 +29,4 @@ public class CustomersService {
         return customersDao.save(customersEntity);
     }
 
-
-
 }

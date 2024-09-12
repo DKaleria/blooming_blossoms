@@ -4,7 +4,11 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Leave a Review</title>
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Blooming blossoms</title>
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
   <h1>Leave a Review</h1>
@@ -26,7 +30,7 @@
     <label for="orders_product_id">Ordered Product ID:</label>
     <input type="number" id="orders_product_id" name="orders_product_id" required><br>
 
-    <button type="submit">Submit</button>
+    <button type="submit" class="button-record">Submit</button>
   </form>
 </body>
 </html>

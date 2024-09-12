@@ -35,6 +35,6 @@ public class ReviewServlet extends HttpServlet {
 
         reviewsDao.save(review);
 
-        response.sendRedirect("success.html"); // Редирект на страницу успешного сохранения
+        response.sendRedirect("success.html");
     }
 }

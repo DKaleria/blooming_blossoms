@@ -37,17 +37,6 @@ public class UserService {
         var userEntity = createUserMapper.mapFrom(createUserDto);
         return userDao.save(userEntity).getId();
     }
-
-    public boolean delete(Integer id) {
-        var maybeUser = userDao.findById(id);
-        maybeUser.ifPresent(user -> userDao.delete(id));
-        return maybeUser.isPresent();
-    }
-
-    public Optional<User> getUserById(Integer userId) {
-        return userDao.findById(userId);
-    }
-
     public void banUser(Integer userId) {
         Optional<User> optionalUser = userDao.findById(userId);
         System.out.println("Is user present? " + optionalUser.isPresent());
@@ -57,7 +46,6 @@ public class UserService {
             userDao.update(user);
         });
     }
-
     public void changeUserRole(Integer userId, Role newRole) {
         Optional<User> optionalUser = userDao.findById(userId);
           if (optionalUser.isPresent()) {
@@ -69,18 +57,10 @@ public class UserService {
             System.out.println("User not found");
         }
     }
-
-
     public List<User> getAllUsers() {
         return userDao.getAll();
     }
-
-    public void updateUser(User user) {
-        userDao.update(user);
-    }
-
-
-    public void unlockUser(int userId) {
+       public void unlockUser(int userId) {
         Optional<User> optionalUser = userDao.findById(userId);
         System.out.println("Is user present? " + optionalUser.isPresent());
         optionalUser.ifPresent(user -> {
@@ -89,5 +69,17 @@ public class UserService {
             userDao.update(user);
         });
 
+    }
+    public void updateUser(User user) {
+        userDao.update(user);
+    }
+    public boolean delete(Integer id) {
+        var maybeUser = userDao.findById(id);
+        maybeUser.ifPresent(user -> userDao.delete(id));
+        return maybeUser.isPresent();
+    }
+
+    public Optional<User> getUserById(Integer userId) {
+        return userDao.findById(userId);
     }
 }

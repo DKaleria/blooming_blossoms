@@ -20,7 +20,7 @@
                 <a href="#" style="text-decoration: none;">О нас</a>
                 <a href="#" style="text-decoration: none;">Цены</a>
                 <a href="#" style="text-decoration: none;">Оплата</a>
-                <a href="html/support.html" style="text-decoration: none;">Обратная связь</a>
+                <a href="support.html" style="text-decoration: none;">Обратная связь</a>
                 <a href="reviews.jsp" style="text-decoration: none;">Отзывы</a>
             </div>
         </div>
@@ -217,7 +217,7 @@
                 <a href="#" style="text-decoration: none;">О нас</a>
                 <a href="#" style="text-decoration: none;">Цены</a>
                 <a href="#" style="text-decoration: none;">Оплата</a>
-                <a href="html/support.html" style="text-decoration: none;">Обратная связь</a>
+                <a href="support.html" style="text-decoration: none;">Обратная связь</a>
                 <a href="reviews.jsp" style="text-decoration: none;">Отзывы</a>
             </div>
         </div>
